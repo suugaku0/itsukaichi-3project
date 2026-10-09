@@ -142,7 +142,7 @@ const works = {
 
     title: "サイエンスグッズ",
 
-    category: "理科を楽しもう",
+    category: "科学を楽しもう",
 
     color: "#4D83C4",
 
