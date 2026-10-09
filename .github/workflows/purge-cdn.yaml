@@ -11,4 +11,4 @@ jobs:
     steps:
       - name: Call jsDelivr Purge API
         run: |
-          curl -s https://purge.jsdelivr.net/gh/${{ github.repository }}@main/script.js
+          curl -s https://purge.jsdelivr.net/gh/${{ github.repository }}@main/main.js
