@@ -35,7 +35,7 @@ const works = {
 
     className: "2組",
 
-    title: "英語カルタ",
+    title: "Englishカルタ",
 
     category: "英語を使って楽しもう",
 
