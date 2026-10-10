@@ -220,6 +220,25 @@ main {
     box-shadow 0.2s ease;
 }
 
+.footer-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 7px;
+  background: var(--class-color);
+}
+
+.footer-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+}
+
+.footer-card:active {
+  transform: translateY(0);
+}
+
 /* =========================
    クラスページ
 ========================= */
