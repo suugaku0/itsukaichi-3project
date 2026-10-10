@@ -650,3 +650,43 @@ footer {
     font-size: 14px;
   }
 }
+
+/* =========================
+   トップへ戻るボタン
+========================= */
+#page-top {
+  /* 右下に固定配置 */
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  
+  /* ボタンの見た目 */
+  width: 50px;
+  height: 50px;
+  border-radius: 50%; /* 丸いボタンにする */
+  background-color: #333;
+  color: #fff;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  
+  /* アニメーションと初期状態（非表示） */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+  z-index: 9999; /* 他の要素より手前に表示 */
+}
+
+/* スクロールされたら付与するクラス（表示状態） */
+#page-top.is-active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ホバー時のちょっとした演出（任意） */
+#page-top:hover {
+  transform: translateY(-3px);
+  background-color: #555;
+}
+

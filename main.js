@@ -497,3 +497,26 @@ function goHome() {
   });
 
 }
+
+/*======================================
+    トップへ戻るボタンの表示制御
+======================================*/
+const pageTopBtn = document.getElementById('page-top');
+
+// 1. スクロール位置に応じてボタンを表示/非表示切り替え
+window.addEventListener('scroll', () => {
+  // 200px以上スクロールしたら 'is-active' クラスを付与
+  if (window.scrollY > 200) {
+    pageTopBtn.classList.add('is-active');
+  } else {
+    pageTopBtn.classList.remove('is-active');
+  }
+});
+
+// 2. ボタンクリック時に最上部へスムーズスクロール
+pageTopBtn.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' /* なめらかにスクロール */
+  });
+});
