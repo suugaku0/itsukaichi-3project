@@ -64,7 +64,7 @@ const works = {
     howto:
       "① カードを並べます。\n② 読み札を聞きます。\n③ 読まれたカードを探します。",
 
-    photo: null,
+    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-2.png",
 
     points: [
       {
@@ -106,7 +106,7 @@ const works = {
     howto:
       "3組のかるたサイトで遊び方を確認してください。",
 
-    photo: null,
+    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-3.png",
 
     points: [
       {
@@ -144,7 +144,7 @@ const works = {
     howto:
       "音源を聞きながら、一緒に歌ってみてください。",
 
-    photo: null,
+    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-4.png",
 
     points: [
       {
@@ -186,7 +186,7 @@ const works = {
     howto:
       "絵本を見ながら、お話を楽しんでください。",
 
-    photo: null,
+    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-5.png",
 
     points: [
       {
@@ -221,7 +221,7 @@ const works = {
     howto:
       "ここにサイエンスグッズの使い方を入れます。",
 
-    photo: null,
+    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-6.png",
 
     points: [
       {
@@ -256,7 +256,7 @@ const works = {
     howto:
       "絵本を見ながら、お話を楽しんでください。",
 
-    photo: null,
+    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-7.png",
 
     points: [
       {
