@@ -200,7 +200,7 @@ footer {
 
 .footer-grid {
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 9px;
 }
 
@@ -215,7 +215,7 @@ footer {
 
   padding: 14px 12px;
 
-  min-height: 80px;
+  min-height: 20px;
 
   text-align: left;
   cursor: pointer;
@@ -242,6 +242,19 @@ footer {
 
 .footer-card:active {
   transform: translateY(0);
+}
+
+.footer-number {
+  color: var(--class-color);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.footer-name {
+  margin-top: 10px;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 /* =========================
