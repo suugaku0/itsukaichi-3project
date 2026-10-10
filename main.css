@@ -203,9 +203,10 @@ footer {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 9px;
 }
-@media (min-width: 827px) { /* ※900pxの部分は実際のギャップやパディングに合わせて調整 */
+@media (min-width: 827px) {
   .footer-grid {
     grid-template-columns: repeat(4, 1fr);
+    max-width: 827px; /* 4列分の幅に制限 */
   }
 }
 .footer-card {
