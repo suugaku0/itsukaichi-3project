@@ -8,9 +8,68 @@
 
 <script src="https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/main.js?v=1"></script>
 <style>
-  /* CSSが読み込まれるまで画面を一時的に隠す */
-  html { opacity: 0; transition: opacity 0.2s ease; }
-</style>
+    /* --- 1. 全体設定と非表示制御 --- */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+    }
+
+    /* メインコンテンツは完了まで非表示（スムーズな表示のため opacity 制御） */
+    #main-content {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.5s ease;
+    }
+
+    /* メインコンテンツ準備完了時に付与するクラス */
+    #main-content.loaded {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* --- 2. ローディング画面のスタイル --- */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffffff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s ease, visibility 0.5s ease;
+    }
+
+    #loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    /* スピナーアニメーション */
+    .spinner {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .loading-text {
+      margin-top: 16px;
+      color: #555;
+      font-size: 14px;
+    }
+  </style>
 <script>
   (function() {
     const link = document.createElement('link');
@@ -29,7 +88,11 @@
 
 
 <body>
-
+<div id="loading-screen">
+    <div class="spinner"></div>
+    <div class="loading-text">読み込み中...</div>
+</div>
+<div id="main-content>
 <header>
 
   <div class="header-inner">
@@ -360,5 +423,64 @@
 <footer>
   五日市子育て支援プロジェクト
 </footer>
+</div>
+<script>
+    (function() {
+      // タイムスタンプ（キャッシュバスター用）
+      const cacheBuster = '?v=' + Date.now();
+
+      // 読み込みたいファイルのURLリスト
+      const cssUrl = 'https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/main.css' + cacheBuster;
+      const jsUrl  = 'https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/script.js' + cacheBuster;
+
+      // CSSを動的に読み込むPromise関数
+      function loadCSS(url) {
+        return new Promise((resolve, reject) => {
+          const link = document.createElement('link');
+          link.rel = 'stylesheet';
+          link.href = url;
+          link.onload = () => resolve();
+          link.onerror = () => reject(new Error(`CSSの読み込みに失敗: ${url}`));
+          document.head.appendChild(link);
+        });
+      }
+
+      // JSを動的に読み込むPromise関数
+      function loadJS(url) {
+        return new Promise((resolve, reject) => {
+          const script = document.createElement('script');
+          script.src = url;
+          script.onload = () => resolve();
+          script.onerror = () => reject(new Error(`JSの読み込みに失敗: ${url}`));
+          document.head.appendChild(script);
+        });
+      }
+
+      // CSSとJSの読み込みを並列で実行
+      Promise.all([
+        loadCSS(cssUrl),
+        loadJS(jsUrl)
+      ])
+      .then(() => {
+        // すべてのリソース読み込み完了時の処理
+        const loadingScreen = document.getElementById('loading-screen');
+        const mainContent = document.getElementById('main-content');
+
+        // 1. ローディング画面をフェードアウト
+        loadingScreen.classList.add('hidden');
+
+        // 2. メインコンテンツを表示
+        mainContent.classList.add('loaded');
+      })
+      .catch((error) => {
+        console.error(error);
+        // エラー時のフォールバック表示
+        const loadingText = document.querySelector('.loading-text');
+        if (loadingText) {
+          loadingText.textContent = '読み込みに失敗しました。再読み込みしてください。';
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
