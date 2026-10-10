@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>五日市子育て支援プロジェクト</title>
+
+<link href="https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/main.css?v=1" rel="stylesheet">
+<script src="https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/main.js?v=1"></script>
+</head>
+
+
+<body>
+
+<header>
+
+  <div class="header-inner">
+    <h1 class="site-title">
+      五日市子育て支援プロジェクト
+    </h1>
+
+    <p class="site-subtitle">
+      7クラスがつくる、五日市のための取り組み
+    </p>
+
+  </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.1/processing-api.min.js"></script>
+<script src="https://static.jsbin.com/js/vendor/traceur.js"></script>
+</header>
+
+
+<main>
+
+
+<!-- =================================
+     トップページ
+================================= -->
+
+<section id="top-page">
+
+  <div class="hero">
+
+    <div class="hero-small">
+      五日市子育て支援プロジェクト
+    </div>
+
+    <h1>
+      五日市を<br>
+      もっと楽しく。
+    </h1>
+
+    <p>
+      私たちは、「五日市の平日の昼間、なんだか人が少ない…？」この素朴な気づきからアンケートを実施し、分析した結果、未就学児や小学校低学年のお子様がいらっしゃる世帯より五日市に滞在できるための支援が必要であることを導きました。「五日市子育て支援プロジェクト」と題して生徒と教員が考えて作ったこの取り組みと五日市の魅力がより多くの方に届きますように。
+      <br><br>
+      五日市のお店などに置いてある作品を見つけたら、
+      このサイトと一緒に楽しんでみてください。
+    </p>
+
+  </div>
+
+
+  <h2 class="section-title">
+    作品を選ぶ
+  </h2>
+
+  <p class="section-text">
+    遊んでみたい作品を選んでください。
+  </p>
+
+
+  <div class="class-grid">
+
+
+    <!-- 1組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#D94B4B;"
+      onclick="openClass(1)"
+    >
+
+      <div class="class-number">
+        1組
+      </div>
+
+      <div class="class-name">
+        英語カルタ
+      </div>
+
+      <div class="class-type">
+        英語を使って楽しもう
+      </div>
+
+    </button>
+
+
+    <!-- 2組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#E88AA4;"
+      onclick="openClass(2)"
+    >
+
+      <div class="class-number">
+        2組
+      </div>
+
+      <div class="class-name">
+        英語カルタ
+      </div>
+
+      <div class="class-type">
+        英語を使って楽しもう
+      </div>
+
+    </button>
+
+
+    <!-- 3組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#D9B62B;"
+      onclick="openClass(3)"
+    >
+
+      <div class="class-number">
+        3組
+      </div>
+
+      <div class="class-name">
+        国語カルタ
+      </div>
+
+      <div class="class-type">
+        ことばを楽しもう
+      </div>
+
+    </button>
+
+
+    <!-- 4組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#E87B32;"
+      onclick="openClass(4)"
+    >
+
+      <div class="class-number">
+        4組
+      </div>
+
+      <div class="class-name">
+        絵本「だぁれの？」の歌
+      </div>
+
+      <div class="class-type">
+        みんなで歌おう
+      </div>
+
+    </button>
+
+
+    <!-- 5組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#8064A8;"
+      onclick="openClass(5)"
+    >
+
+      <div class="class-number">
+        5組
+      </div>
+
+      <div class="class-name">
+        絵本
+      </div>
+
+      <div class="class-type">
+        お話を楽しもう
+      </div>
+
+    </button>
+
+
+    <!-- 6組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#4D83C4;"
+      onclick="openClass(6)"
+    >
+
+      <div class="class-number">
+        6組
+      </div>
+
+      <div class="class-name">
+        サイエンスグッズ
+      </div>
+
+      <div class="class-type">
+        理科を楽しもう
+      </div>
+
+    </button>
+
+
+    <!-- 7組 -->
+
+    <button
+      class="class-card"
+      style="--class-color:#5A9A63;"
+      onclick="openClass(7)"
+    >
+
+      <div class="class-number">
+        7組
+      </div>
+
+      <div class="class-name">
+        絵本
+      </div>
+
+      <div class="class-type">
+        お話を楽しもう
+      </div>
+
+    </button>
+
+
+  </div>
+
+</section>
+
+
+
+<!-- =================================
+     クラス詳細ページ
+================================= -->
+
+<section id="work-page" class="hidden">
+
+  <button
+    class="back-button"
+    onclick="goHome()"
+  >
+    ← クラス一覧へ戻る
+  </button>
+
+
+  <div
+    id="work-header"
+    class="work-header"
+  >
+
+    <div
+      id="work-class"
+      class="work-class"
+    ></div>
+
+    <h2
+      id="work-title"
+      class="work-title"
+    ></h2>
+
+    <div
+      id="work-category"
+      class="work-category"
+    ></div>
+
+  </div>
+
+
+  <div class="content-grid">
+
+
+    <!-- 作品紹介 -->
+
+    <div class="content-box full">
+
+      <h3>
+        作品について
+      </h3>
+
+      <p id="work-description"></p>
+
+    </div>
+
+
+    <!-- 遊び方 -->
+
+    <div class="content-box full">
+
+      <h3>
+        遊び方
+      </h3>
+
+      <p id="work-howto"></p>
+
+    </div>
+
+
+    <!-- 写真 -->
+
+    <div class="content-box full">
+
+      <h3>
+        作品の様子
+      </h3>
+
+      <div id="photo-area"></div>
+
+    </div>
+
+
+    <!-- 工夫 -->
+
+    <div class="content-box full">
+
+      <h3>
+        制作の工夫
+      </h3>
+
+      <div id="work-point-container" class="comment-list"></div>
+
+    </div>
+
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+<footer>
+  五日市子育て支援プロジェクト
+</footer>
+</body>
+</html>
