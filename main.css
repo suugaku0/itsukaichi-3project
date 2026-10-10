@@ -204,7 +204,7 @@ footer {
   gap: 9px;
 }
 @media (min-width: 827px) { /* ※900pxの部分は実際のギャップやパディングに合わせて調整 */
-  .container {
+  .footer-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 }
