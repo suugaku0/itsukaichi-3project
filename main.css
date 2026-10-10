@@ -445,7 +445,21 @@ main {
 
   text-align: center;
 }
+.lyrics {
+  min-height: 220px;
 
+  border-radius: 16px;
+
+  background: #f3f3f3;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  color: #FFF;
+
+  text-align: left;
+}
 
 /* =========================
    外部サイトボタン
