@@ -122,7 +122,7 @@ const works = {
     ],
 
     externalLink:
-      "ここに3組の既存サイトのURLを入れる"
+      "https://kotonoha-karuta.netlify.app/"
 
   },
 
