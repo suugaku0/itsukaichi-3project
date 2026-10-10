@@ -1,0 +1,20 @@
+name: Generate Version File
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create version.json
+        run: |
+          echo "{\"v\": \"${{ github.sha }}\"}" > version.json
+
+      - name: Deploy version.json to GitHub Pages (または別ブランチ)
+        # ※生成された version.json を配信可能な状態にします
