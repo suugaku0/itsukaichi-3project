@@ -6,7 +6,6 @@
 
 <title>五日市子育て支援プロジェクト</title>
 
-<script src="https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/main.js?v=1"></script>
 <style>
     /* --- 1. 全体設定と非表示制御 --- */
     body {
@@ -70,20 +69,6 @@
       font-size: 14px;
     }
   </style>
-<script>
-  (function() {
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = 'https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/main.css?v=' + Date.now();
-
-    // CSSの読み込み完了時に画面を表示させる
-    link.onload = function() {
-      document.documentElement.style.opacity = '1';
-    };
-
-    document.head.appendChild(link);
-  })();
-</script>
 </head>
 
 
@@ -431,7 +416,7 @@
 
       // 読み込みたいファイルのURLリスト
       const cssUrl = 'https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/main.css' + cacheBuster;
-      const jsUrl  = 'https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/script.js' + cacheBuster;
+      const jsUrl  = 'https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/main.js' + cacheBuster;
 
       // CSSを動的に読み込むPromise関数
       function loadCSS(url) {
