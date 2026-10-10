@@ -6,8 +6,25 @@
 
 <title>五日市子育て支援プロジェクト</title>
 
-<link href="https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/main.css?v=1" rel="stylesheet">
 <script src="https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/main.js?v=1"></script>
+<style>
+  /* CSSが読み込まれるまで画面を一時的に隠す */
+  html { opacity: 0; transition: opacity 0.2s ease; }
+</style>
+<script>
+  (function() {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = 'https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/main.css' + Date.now();
+
+    // CSSの読み込み完了時に画面を表示させる
+    link.onload = function() {
+      document.documentElement.style.opacity = '1';
+    };
+
+    document.head.appendChild(link);
+  })();
+</script>
 </head>
 
 
