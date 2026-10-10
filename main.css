@@ -193,6 +193,11 @@ main {
    フッターカード
 ========================= */
 
+footer {
+  border-top: 1px solid #e5e5e5; /* 線の太さ 種類 色 */
+  padding-top: 2rem;            /* 線とフッター内のコンテンツの間の余白 */
+}
+
 .footer-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
