@@ -144,8 +144,10 @@ const works = {
     howto:
       "音源を聞きながら、一緒に歌ってみてください。",
 
-    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-4.png",
+    photo: null,
 
+    lyrics:
+       "歌の歌詞を入力します",
     points: [
       {
         role: "teacher",
@@ -401,6 +403,12 @@ function openClass(classNumber) {
 
     photoArea.appendChild(image);
 
+  }else if([4].includes(Number(classNumber))){
+     photoArea.innerHTML = 
+        `<div class="lyrics">
+           ${work.lyrics}
+         </div>
+        `;
   } else {
 
     photoArea.innerHTML =
