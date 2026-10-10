@@ -91,8 +91,6 @@
 
   </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.4.1/processing-api.min.js"></script>
-<script src="https://static.jsbin.com/js/vendor/traceur.js"></script>
 </header>
 
 
@@ -450,8 +448,8 @@
         const versionParam = '?v=' + data.v;
 
         // 3. 最新バージョンパラメータを付与したURLを設定
-        const cssUrl = `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/main.css${versionParam}`;
-        const jsUrl  = `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/main.js${versionParam}`;
+        const cssUrl = `https://cdn.statically.io/gh/${user}/${repo}@${branch}/main.css${versionParam}`;
+        const jsUrl  = `https://cdn.statically.io/gh/${user}/${repo}@${branch}/main.js${versionParam}`;
 
         // 4. CSSとJSを並列でロード
         await Promise.all([
