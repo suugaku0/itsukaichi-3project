@@ -21,7 +21,7 @@ const works = {
     howto:
       "① カードを並べます。\n② 読み札を聞きます。\n③ 読まれたカードを探します。\n④ 見つけたらカードを取ります。",
 
-    photo: null,
+    photo: "https://raw.githubusercontent.com/suugaku0/itsukaichi-3project/main/Images/3-1.png",
 
     // 担任の先生 ＋ 生徒の意見（2〜3人分をここに追加できます）
     points: [
