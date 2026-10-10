@@ -410,61 +410,77 @@
 </footer>
 </div>
 <script>
-    (function() {
-      // タイムスタンプ（キャッシュバスター用）
-      const cacheBuster = '?v=' + Date.now();
+    (async function() {
+      const user = 'suugaku0';
+      const repo = 'itsukaichi-3project';
+      const branch = 'main';
 
-      // 読み込みたいファイルのURLリスト
-      const cssUrl = 'https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/main.css' + cacheBuster;
-      const jsUrl  = 'https://cdn.statically.io/gh/suugaku0/itsukaichi-3project@main/main.js' + cacheBuster;
-
-      // CSSを動的に読み込むPromise関数
+      // 1. CSS/JSを動的に生成してPromise化する関数
       function loadCSS(url) {
         return new Promise((resolve, reject) => {
           const link = document.createElement('link');
           link.rel = 'stylesheet';
           link.href = url;
           link.onload = () => resolve();
-          link.onerror = () => reject(new Error(`CSSの読み込みに失敗: ${url}`));
+          link.onerror = () => reject(new Error(`CSS読み込み失敗: ${url}`));
           document.head.appendChild(link);
         });
       }
 
-      // JSを動的に読み込むPromise関数
       function loadJS(url) {
         return new Promise((resolve, reject) => {
           const script = document.createElement('script');
           script.src = url;
           script.onload = () => resolve();
-          script.onerror = () => reject(new Error(`JSの読み込みに失敗: ${url}`));
+          script.onerror = () => reject(new Error(`JS読み込み失敗: ${url}`));
           document.head.appendChild(script);
         });
       }
 
-      // CSSとJSの読み込みを並列で実行
-      Promise.all([
-        loadCSS(cssUrl),
-        loadJS(jsUrl)
-      ])
-      .then(() => {
-        // すべてのリソース読み込み完了時の処理
+      try {
+        // 2. version.json を取得（キャッシュを回避するために no-cache を指定）
+        // ※ raw.githack.com を使って直読み、または GitHub Pages 等のURLを指定
+        const versionUrl = `https://raw.githack.com/${user}/${repo}/${branch}/version.json?raw=true`;
+        const res = await fetch(versionUrl, { cache: 'no-cache' });
+        
+        if (!res.ok) throw new Error('version.json の取得に失敗しました');
+        const data = await res.json();
+        
+        // 最新コミットハッシュ（更新がない場合は前と同じ値＝キャッシュが効く）
+        const versionParam = '?v=' + data.v;
+
+        // 3. 最新バージョンパラメータを付与したURLを設定
+        const cssUrl = `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/main.css${versionParam}`;
+        const jsUrl  = `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/main.js${versionParam}`;
+
+        // 4. CSSとJSを並列でロード
+        await Promise.all([
+          loadCSS(cssUrl),
+          loadJS(jsUrl)
+        ]);
+
+        // 5. 読み込み完了後、ローディング画面を解除
         const loadingScreen = document.getElementById('loading-screen');
         const mainContent = document.getElementById('main-content');
 
-        // 1. ローディング画面をフェードアウト
         loadingScreen.classList.add('hidden');
-
-        // 2. メインコンテンツを表示
         mainContent.classList.add('loaded');
-      })
-      .catch((error) => {
+
+      } catch (error) {
         console.error(error);
-        // エラー時のフォールバック表示
-        const loadingText = document.querySelector('.loading-text');
-        if (loadingText) {
-          loadingText.textContent = '読み込みに失敗しました。再読み込みしてください。';
-        }
-      });
+        
+        // フォールバック処理（バージョン指定なしで読み込みを試みる）
+        const cssUrl = `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/style.css`;
+        const jsUrl  = `https://cdn.jsdelivr.net/gh/${user}/${repo}@${branch}/script.js`;
+        
+        Promise.all([loadCSS(cssUrl), loadJS(jsUrl)]).then(() => {
+          document.getElementById('loading-screen').classList.add('hidden');
+          document.getElementById('main-content').classList.add('loaded');
+        }).catch(() => {
+          const loadingText = document.querySelector('.loading-text');
+          if (loadingText) loadingText.textContent = 'ページの読み込みに失敗しました。';
+        });
+      }
     })();
   </script>
 </body>
