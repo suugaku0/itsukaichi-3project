@@ -518,6 +518,7 @@ footer {
 
   text-align: center;
 }
+
 .lyrics {
   min-height: 220px;
 
@@ -527,9 +528,9 @@ footer {
 
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: left;
 
-  color: #FFF;
+  color: #333;
 
   text-align: left;
 }

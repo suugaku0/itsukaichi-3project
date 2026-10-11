@@ -147,7 +147,7 @@ const works = {
     photo: null,
 
     lyrics:
-       "歌の歌詞を入力します",
+       "",
     points: [
       {
         role: "teacher",
@@ -166,9 +166,7 @@ const works = {
       }
     ],
 
-    audioLink: "https://drive.google.com/file/d/1-YFqaC-nnmzA5aJiwWp5rKBnLeDW_G1p/view?usp=drives
-dk
-"
+    audioLink: "https://drive.google.com/file/d/1-YFqaC-nnmzA5aJiwWp5rKBnLeDW_G1p/view?usp=drivesdk"
 
   },
 
