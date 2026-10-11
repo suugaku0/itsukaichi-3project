@@ -528,8 +528,8 @@ footer {
   background: #f3f3f3;
 
   display: flex;
-  justify-content: center;
-  align-items: left;
+  justify-content: left;
+  align-items: center;
 
   color: #333;
 
