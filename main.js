@@ -580,7 +580,13 @@ async function incrementKey(key) {
     return newVal;
 }
 
-window.addEventListener("DOMContentLoaded",async () => {
-  const count = incrementKey("View_All")
-  console.log(count)
-})
+if (document.readyState === "loading") {
+    // まだ読み込み中の場合はイベントを待つ
+    document.addEventListener("DOMContentLoaded", async () => {
+      const count = incrementKey("View_All")
+      console.log(count)
+    });
+} else {
+    const count = incrementKey("View_All")
+    console.log(count)
+}
