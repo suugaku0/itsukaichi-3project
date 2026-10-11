@@ -70,6 +70,18 @@ main {
   padding: 45px 24px 80px;
 }
 
+/* =========================
+    アンケートページ
+========================= */
+.ancateButton {
+  background: #FFF;
+  border-radius: 24px;
+  padding: 50px 45px;
+  margin-bottom: 55px;
+  border: 1px solid #e8e8e8;
+  font-size: 20px;
+  font-weight: 700;
+}
 
 /* =========================
    トップの紹介

@@ -520,3 +520,18 @@ pageTopBtn.addEventListener('click', () => {
     behavior: 'smooth' /* なめらかにスクロール */
   });
 });
+
+/*=========================================
+    アンケートページ遷移制御
+=========================================*/
+const ancateButton = document.getElementById("ancateButton")
+if (JSON.parse(localStorage.getItem('isAnswerd'))){
+  ancateButton.classList.add("invisible")
+}else{
+  ancateButton.classList.remove("invisible")
+}
+
+function goAncate(){
+  localStorage.setItem('isAnswerd', JSON.stringify(true));
+  window.location.href="https://docs.google.com/forms/d/e/1FAIpQLSdfpfIci9iykP1b3fJvDNePSY6cwy2ZkW6E-o2_Hkt1PDCzCA/viewform?usp=dialog"
+}
