@@ -588,6 +588,7 @@ function goAncate(){
 async function loaded(){
   const count = await incrementKey("View_All")
   console.log(count)
+  document.getElementById("view").innerText=`表示数:${String(count)}`
 }
 
 if (document.readyState === "loading") {
