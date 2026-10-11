@@ -528,11 +528,12 @@ footer {
 
   display: flex;
   justify-content: center;
-  align-items: left;
+  align-items: center;
 
   color: #333;
 
   text-align: left;
+  white-space: pre-line;
 }
 
 /* =========================
