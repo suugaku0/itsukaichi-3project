@@ -587,6 +587,6 @@ if (document.readyState === "loading") {
       console.log(count)
     });
 } else {
-    const count = incrementKey("View_All")
+    const count = await incrementKey("View_All")
     console.log(count)
 }
