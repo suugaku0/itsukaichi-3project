@@ -333,7 +333,7 @@ function openClass(classNumber) {
 
   const work = works[classNumber];
 
-  incrementKey(`Class${String(classNumber)}_Count`)
+  incrementKey(`View_Class${String(classNumber)}`)
 
   document
     .getElementById("top-page")
