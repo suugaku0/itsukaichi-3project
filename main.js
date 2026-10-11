@@ -1,3 +1,45 @@
+/*======================================
+    アクセス数API関数
+======================================*/
+const API_URL = 'https://itsukaichi-3project.gengpingbanben4.workers.dev';
+
+async function getValue(key) {
+    try {
+        const res = await fetch(`${API_URL}/?action=get&key=${encodeURIComponent(key)}`);
+        const data = await res.json();
+        return data.success ? data.value : null;
+    } catch (err) {
+        console.error('取得エラー:', err);
+        return null;
+    }
+}
+
+/**
+ * ② 指定したキーに値を「上書き保存」する関数
+ */
+async function setValue(key, value) {
+    try {
+        const res = await fetch(`${API_URL}/?action=set&key=${encodeURIComponent(key)}&value=${encodeURIComponent(value)}`);
+        const data = await res.json();
+        return data.success;
+    } catch (err) {
+        console.error('保存エラー:', err);
+        return false;
+    }
+}
+
+/**
+ * ③ 取得して +1 して書き戻す（インクリメント）関数
+ */
+async function incrementKey(key) {
+    const currentStr = await getValue(key);
+    const currentVal = currentStr !== null ? parseInt(currentStr, 10) : 0;
+    const newVal = currentVal + 1;
+    
+    // 新しい値を保存する
+    await setValue(key, newVal);
+    return newVal;
+}
 /* =====================================
    作品情報（ここに生徒2〜3人の意見をそれぞれ設定できます）
 ===================================== */
@@ -291,6 +333,8 @@ function openClass(classNumber) {
 
   const work = works[classNumber];
 
+  incrementKey(`Class${String(classNumber)}_Count`)
+
   document
     .getElementById("top-page")
     .classList.add("hidden");
@@ -540,45 +584,6 @@ function goAncate(){
     アクセス数制御
 =========================================*/
 
-const API_URL = 'https://itsukaichi-3project.gengpingbanben4.workers.dev';
-
-async function getValue(key) {
-    try {
-        const res = await fetch(`${API_URL}/?action=get&key=${encodeURIComponent(key)}`);
-        const data = await res.json();
-        return data.success ? data.value : null;
-    } catch (err) {
-        console.error('取得エラー:', err);
-        return null;
-    }
-}
-
-/**
- * ② 指定したキーに値を「上書き保存」する関数
- */
-async function setValue(key, value) {
-    try {
-        const res = await fetch(`${API_URL}/?action=set&key=${encodeURIComponent(key)}&value=${encodeURIComponent(value)}`);
-        const data = await res.json();
-        return data.success;
-    } catch (err) {
-        console.error('保存エラー:', err);
-        return false;
-    }
-}
-
-/**
- * ③ 取得して +1 して書き戻す（インクリメント）関数
- */
-async function incrementKey(key) {
-    const currentStr = await getValue(key);
-    const currentVal = currentStr !== null ? parseInt(currentStr, 10) : 0;
-    const newVal = currentVal + 1;
-    
-    // 新しい値を保存する
-    await setValue(key, newVal);
-    return newVal;
-}
 
 async function loaded(){
   const count = await incrementKey("View_All")
