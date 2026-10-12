@@ -713,10 +713,10 @@ const urlParams = new URLSearchParams(window.location.search);
 const pageState = urlParams.get("page")
 
 if (!pageState){
-  loaded();
+  countMain();
   goHome();
 }else if(pageState=="mainPage"){
-  loaded();
+  countMain();
   goHome();
 }else if(pageState=="classPage"){
   const classNumber = Number(urlParams.get("class"))
