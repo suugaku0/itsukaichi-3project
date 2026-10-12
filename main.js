@@ -120,6 +120,12 @@ async function incrementInnerValuewithToday(keyname){
   const allVal = await incrementValue(keyname)
   return {today:todayVal,all:allVal}
 }
+async function getInnerValuewithToday(keyname){
+  const today = getDateString()
+  const todayVal = await getInnerValue(`${keyname}Days`,`${keyname}_${today}`)
+  const allVal = await getKeyValue(keyname)
+  return {today:todayVal,all:allVal};
+}
 
 
 /*======================================
@@ -693,19 +699,12 @@ function goAncate(){
 
 
 async function loaded(){
-  const count = await incrementInnerValuewithToday("View_All")
+  await incrementInnerValuewithToday("View_All")
+  const count= await getInnerValuewithToday("View_All")
   console.log(count)
-  document.getElementById("view").innerHTML=`本日:${String(count.today)} <br> 総数:${String(count.all)}`
+  document.getElementById("view").innerHTML=`本日:${String(count.all)} <br> 総数:${String(count.all)}`
 }
 
-if (document.readyState === "loading") {
-  // まだ読み込み中の場合はイベントを待つ
-  document.addEventListener("DOMContentLoaded", async () => {
-    loaded()
-  });
-} else {
-  loaded()
-}
 
 /*======================================
     リンクルート管理
@@ -714,7 +713,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const pageState = urlParams.get("page")
 
 if (!pageState){
-
+  loaded();
 }else if(pageState=="classPage"){
   const classNumber = Number(urlParams.get("class"))
   if ([1,2,3,4,5,6,7].includes(classNumber)){
