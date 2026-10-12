@@ -149,8 +149,9 @@ async function openViews(){
 
   const viewPage = document.getElementById("view-page")
   viewPage.style.setProperty("--current-color","#444")
-  
-  document.getElementById("viewPage_All").textContent= await getKeyValue("View_All")
+  const bascs = await getInnerValuewithToday("view_Main")
+  document.getElementById("viewPage_All").innerHTML=`総数:${bascs.all} <br> 本日:${bascs.today} <br> 昨日${bascs.yesterday}` 
+  document.getElementById("viewPage_week").innerHTML=``
 }
 /* =====================================
    作品情報（ここに生徒2〜3人の意見をそれぞれ設定できます）
