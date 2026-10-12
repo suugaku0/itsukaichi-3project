@@ -157,7 +157,7 @@ async function openViews(){
   document.getElementById("viewPage_All").innerHTML=`総数:${bascs.all} <br> 本日:${bascs.today} <br> 昨日${bascs.yesterday}` 
 
   for(let i =0;i<7;i++){
-    document.getElementById("viewPage_week").innerHTML += `${getDateString(i)}:${getInnerValuewithDaysAgo(i)}`
+    document.getElementById("viewPage_week").innerHTML += `${getDateString(i)}:${await getInnerValuewithDaysAgo(i)}`
   }
 }
 /* =====================================
