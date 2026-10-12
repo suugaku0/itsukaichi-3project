@@ -128,7 +128,11 @@ async function getInnerValuewithToday(keyname){
   const allVal = await getKeyValue(keyname)
   return {today:todayVal,all:allVal,yesterday:yesterdayVal};
 }
-
+async function  getInnerValuewithDaysAgo(keyname, daysago) {
+  const dayst = getDateString(daysago)
+  const dayVal = await getInnerValue(`${keyname}Days`,`${keyname}_${dayst}`)
+  return dayVal
+}
 
 /*======================================
     表示数表示関数
@@ -151,7 +155,10 @@ async function openViews(){
   viewPage.style.setProperty("--current-color","#444")
   const bascs = await getInnerValuewithToday("view_Main")
   document.getElementById("viewPage_All").innerHTML=`総数:${bascs.all} <br> 本日:${bascs.today} <br> 昨日${bascs.yesterday}` 
-  document.getElementById("viewPage_week").innerHTML=``
+
+  for(let i =0;i<7;i++){
+    document.getElementById("viewPage_week").innerHTML += `${getDateString(i)}:${getInnerValuewithDaysAgo(i)}`
+  }
 }
 /* =====================================
    作品情報（ここに生徒2〜3人の意見をそれぞれ設定できます）
