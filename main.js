@@ -704,7 +704,7 @@ async function countMain(){
   await incrementInnerValuewithToday("View_All")
   const count= await getInnerValuewithToday("View_All")
   console.log(count)
-  document.getElementById("view").innerHTML=`本日:${String(count.today)} <br> 総数:${String(count.all)}`
+  document.getElementById("view").innerHTML=`本日:${String(count.today)} <br> 昨日:${String(count.yesterday)} <br> 総数:${String(count.all)}`
 }
 
 
