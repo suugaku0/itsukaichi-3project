@@ -131,24 +131,7 @@ async function incrementInnerValuewithToday(keyname){
   return {today:todayVal,all:allVal}
 }
 
-/*======================================
-    リンクルート管理
-======================================*/
-const urlParams = new URLSearchParams(window.location.search);
-const pageState = urlParams.get("page")
 
-if (!pageState){
-
-}else if(pageState=="classPage"){
-  const classNumber = Number(urlParams.get("class"))
-  if ([1,2,3,4,5,6,7].includes(classNumber)){
-    openClass(classNumber)
-  }else{
-    console.log("クラス番号が有効ではありません")
-  }
-}else if(pageState=="viewPage"){
-  openViews()
-}
 /*======================================
     表示数表示関数
 ======================================*/
@@ -732,4 +715,23 @@ if (document.readyState === "loading") {
   });
 } else {
   loaded()
+}
+
+/*======================================
+    リンクルート管理
+======================================*/
+const urlParams = new URLSearchParams(window.location.search);
+const pageState = urlParams.get("page")
+
+if (!pageState){
+
+}else if(pageState=="classPage"){
+  const classNumber = Number(urlParams.get("class"))
+  if ([1,2,3,4,5,6,7].includes(classNumber)){
+    openClass(classNumber)
+  }else{
+    console.log("クラス番号が有効ではありません")
+  }
+}else if(pageState=="viewPage"){
+  openViews()
 }
