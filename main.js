@@ -175,14 +175,14 @@ async function openViews(){
 
   const viewPage = document.getElementById("view-page")
   viewPage.style.setProperty("--current-color","#444")
-  const bascs = await getInnerValuewithToday("view_Main")
+  const bascs = await getInnerValuewithToday("View_Main")
   document.getElementById("viewPage_All").innerHTML=`総数:${bascs.all} <br> 本日:${bascs.today} <br> 昨日${bascs.yesterday}` 
 
   for(let i =0;i<7;i++){
-    document.getElementById("viewPage_week").innerHTML += `${getDateString(i)}:${await getInnerValuewithDaysAgo(`view_${"Main"}`,i)} <br>`
+    document.getElementById("viewPage_week").innerHTML += `${getDateString(i)}:${await getInnerValuewithDaysAgo(`View_${"Main"}`,i)} <br>`
   }
   for(let i = 0; i<12; i++){
-    document.getElementById("viewPage_Month").innerHTML += `${getMonthString(i)};${await getInnerValuewithMonthAgo(`view_${"Main"}`,i)} <br>`
+    document.getElementById("viewPage_month").innerHTML += `${getMonthString(i)};${await getInnerValuewithMonthAgo(`View_${"Main"}`,i)} <br>`
   }
 }
 /* =====================================
