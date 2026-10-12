@@ -700,9 +700,9 @@ function goAncate(){
 =========================================*/
 
 
-async function countMain(){
-  await incrementInnerValuewithToday("View_All")
-  const count= await getInnerValuewithToday("View_All")
+async function count(pageState){
+  await incrementInnerValuewithToday(`View_${pageState}`)
+  const count= await getInnerValuewithToday(`View_${pageState}`)
   console.log(count)
   document.getElementById("view").innerHTML=`本日:${String(count.today)} <br> 昨日:${String(count.yesterday)} <br> 総数:${String(count.all)}`
 }
@@ -717,16 +717,16 @@ const pageState = urlParams.get("page")
 if (!pageState){
   countMain();
   goHome();
-}else if(pageState=="mainPage"){
+}else if(pageState=="main"){
   countMain();
   goHome();
-}else if(pageState=="classPage"){
+}else if(pageState=="class"){
   const classNumber = Number(urlParams.get("class"))
   if ([1,2,3,4,5,6,7].includes(classNumber)){
     openClass(classNumber)
   }else{
     console.log("クラス番号が有効ではありません")
   }
-}else if(pageState=="viewPage"){
+}else if(pageState=="view"){
   openViews()
 }
