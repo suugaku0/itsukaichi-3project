@@ -110,9 +110,11 @@ async function incrementInnerValue(kvKey, innerKey) {
     console.log(rawValue)
     let data = {};
     try {
+        console.log("incrementInnerValueのJSON取得は実行された。")
         data = JSON.parse(rawValue || "{}");
     } catch (e) {
         data = {};
+        console.log("incrementInnerValueのJSON取得はエラーになった。")
     }
 
     // 2. 該当するキーの現在値を取得（なければ0）して +1 する
