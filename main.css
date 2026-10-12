@@ -62,7 +62,9 @@ header {
   color: #777;
   font-size: 13px;
 }
-
+.view{
+  margin-left:auto;
+}
 
 /* =========================
    全体
