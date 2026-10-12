@@ -698,7 +698,7 @@ function goAncate(){
 =========================================*/
 
 
-async function loaded(){
+async function countMain(){
   await incrementInnerValuewithToday("View_All")
   const count= await getInnerValuewithToday("View_All")
   console.log(count)
