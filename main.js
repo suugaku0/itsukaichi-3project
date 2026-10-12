@@ -65,7 +65,7 @@ async function getInnerValue(kvKey, innerKey, defaultValue = 0) {
     const rawValue = await getKeyValue(kvKey);
     try {
         const data = JSON.parse(rawValue);
-        return data.innerKey ?? defaultValue;
+        return data[innerKey] ?? defaultValue;
     } catch (e) {
         return defaultValue;
     }
@@ -90,7 +90,7 @@ async function setInnerValue(kvKey, innerKey, value) {
     }
     
     // 特定のキーの値を書き換え
-    data.innerKey = value;
+    data[innerKey] = value;
     
     // JSON文字列に戻してKVに保存
     const updatedJsonString = JSON.stringify(data);
@@ -103,30 +103,10 @@ async function setInnerValue(kvKey, innerKey, value) {
  * @param {string} innerKey - JSON内のキー名（例: getDateString(0) や 'totalCount'）
  */
 async function incrementInnerValue(kvKey, innerKey) {
-    // 1. 現在のKVデータを取得
-    const rawValue = await getKeyValue(kvKey);
-    console.log(rawValue)
-    let data = {};
-    try {
-        console.log("incrementInnerValueのJSON取得は実行された。")
-        data = JSON.parse(rawValue);
-    } catch (e) {
-        data = {};
-        console.log("incrementInnerValueのJSON取得はエラーになった。")
-    }
-
-    // 2. 該当するキーの現在値を取得（なければ0）して +1 する
-    const currentCount = data.innerKey ?? 0;
-    const newCount = currentCount + 1;
-
-    // 3. データを更新
-    data.innerKey = newCount;
-    console.log(`データ:${data}`)
-    // 4. KVに保存
-    await setKeyValue(kvKey, JSON.stringify(data));
-
-    console.log(`[${kvKey}] のキー [${innerKey}] を ${newCount} に更新しました！`);
-    return newCount;
+  const rawValue = await getInnerValue(kvKey,innerKey)
+  const newValue =rawValue+1
+  await setInnerValue(kvKey,innerKey,newValue)
+  return newValue
 }
 async function incrementInnerValuewithToday(keyname){
   const today=getDateString()
