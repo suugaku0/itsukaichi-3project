@@ -712,9 +712,9 @@ async function count(pageState = "Main"){
     リンクルート管理
 ======================================*/
 const urlParams = new URLSearchParams(window.location.search);
-const pageState = urlParams.get("page")
-const classNumberSt = urlParams.get("class")
-count(pageState)
+const pageState = urlParams.get("page") ?? "Main"
+const classNumberSt = urlParams.get("class") ?? ""
+count(pageState+classNumberSt)
 
 if (!pageState){
   goHome();
