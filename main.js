@@ -713,15 +713,15 @@ async function count(pageState="Main"){
 ======================================*/
 const urlParams = new URLSearchParams(window.location.search);
 const pageState = urlParams.get("page")
-
-count()
+const classNumberSt = urlParams.get("class") || ""
+count(pageState+classNumberSt)
 
 if (!pageState){
   goHome();
 }else if(pageState=="main"){
   goHome();
 }else if(pageState=="class"){
-  const classNumber = Number(urlParams.get("class"))
+  const classNumber = Number(classNumberSt)
   if ([1,2,3,4,5,6,7].includes(classNumber)){
     openClass(classNumber)
   }else{
