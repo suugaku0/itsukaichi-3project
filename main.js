@@ -64,7 +64,7 @@ async function incrementValue(key){
 async function getInnerValue(kvKey, innerKey, defaultValue = 0) {
     const rawValue = await getKeyValue(kvKey);
     try {
-        const data = JSON.parse(rawValue || "{}");
+        const data = JSON.parse(rawValue);
         return data[innerKey] ?? defaultValue;
     } catch (e) {
         return defaultValue;
@@ -83,7 +83,7 @@ async function setInnerValue(kvKey, innerKey, value) {
     let data = {};
     try {
         console.log("setInnerValueのJSON取得は実行された。")
-        data = JSON.parse(rawValue || "{}");
+        data = JSON.parse(rawValue);
     } catch (e) {
         data = {};
         console.log("setInnerValueのJSON取得はエラーになった。")
@@ -111,7 +111,7 @@ async function incrementInnerValue(kvKey, innerKey) {
     let data = {};
     try {
         console.log("incrementInnerValueのJSON取得は実行された。")
-        data = JSON.parse(rawValue || "{}");
+        data = JSON.parse(rawValue);
     } catch (e) {
         data = {};
         console.log("incrementInnerValueのJSON取得はエラーになった。")
