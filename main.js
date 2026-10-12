@@ -3,42 +3,173 @@
 ======================================*/
 const API_URL = 'https://itsukaichi-3project.gengpingbanben4.workers.dev';
 
-async function getValue(key) {
+/**
+ * 1. 指定した日数前の日付文字列（YYYY-MM-DD）を返す関数
+ * @param {number} daysAgo - 0なら今日、1なら昨日、2なら一昨日...
+ */
+function getDateString(daysAgo = 0) {
+    const date = new Date();
+    date.setDate(date.getDate() - daysAgo);
+    
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    
+    return `${year}-${month}-${day}`;
+}
+
+/**
+ * 2. 指定したKVのkeyの値を呼び出す関数（取得）
+ */
+async function getKeyValue(key) {
     try {
         const res = await fetch(`${API_URL}/?action=get&key=${encodeURIComponent(key)}`);
         const data = await res.json();
         return data.success ? data.value : null;
     } catch (err) {
-        console.error('取得エラー:', err);
+        console.error('KV取得エラー:', err);
         return null;
     }
 }
 
 /**
- * ② 指定したキーに値を「上書き保存」する関数
+ * 3. 指定したKVのkeyに値を書き込む関数（保存）
  */
-async function setValue(key, value) {
+async function setKeyValue(key, value) {
     try {
         const res = await fetch(`${API_URL}/?action=set&key=${encodeURIComponent(key)}&value=${encodeURIComponent(value)}`);
         const data = await res.json();
         return data.success;
     } catch (err) {
-        console.error('保存エラー:', err);
+        console.error('KV保存エラー:', err);
         return false;
     }
 }
 
-/**
- * ③ 取得して +1 して書き戻す（インクリメント）関数
- */
-async function incrementKey(key) {
-    const currentStr = await getValue(key);
-    const currentVal = currentStr !== null ? parseInt(currentStr, 10) : 0;
-    const newVal = currentVal + 1;
+async function incrementValue(key){
+  const currentStr = await getValue(key);
+  const currentVal = currentStr !== null ? parseInt(currentStr, 10) : 0;
+  const newVal = currentVal + 1;
     
-    // 新しい値を保存する
-    await setValue(key, newVal);
-    return newVal;
+  // 新しい値を保存する
+  await setValue(key, newVal);
+  return newVal;
+}
+/**
+ * 4. 【更新】指定したKVのkeyからJSONを取得し、その中の特定のキーの値を取り出す関数
+ * @param {string} kvKey - KVのキー名（例: 'ViewsDay'）
+ * @param {string} innerKey - JSON内のキー名（例: '2026-10-12' や 'total'）
+ * @param {any} defaultValue - 値が存在しない場合のデフォルト値
+ */
+async function getInnerValue(kvKey, innerKey, defaultValue = 0) {
+    const rawValue = await getKeyValue(kvKey);
+    try {
+        const data = JSON.parse(rawValue || "{}");
+        return data[innerKey] ?? defaultValue;
+    } catch (e) {
+        return defaultValue;
+    }
+}
+
+/**
+ * 5. 【更新】指定したKVのkeyからJSONを取得し、その中の特定のキーの値を書き換えて保存する関数
+ * @param {string} kvKey - KVのキー名（例: 'ViewsDay'）
+ * @param {string} innerKey - JSON内のキー名（例: '2026-10-12' や 'total'）
+ * @param {any} value - 新しく設定する値
+ */
+async function setInnerValue(kvKey, innerKey, value) {
+    // 現在のJSONデータを取得
+    const rawValue = await getKeyValue(kvKey);
+    let data = {};
+    try {
+        data = JSON.parse(rawValue || "{}");
+    } catch (e) {
+        data = {};
+    }
+    
+    // 特定のキーの値を書き換え
+    data[innerKey] = value;
+    
+    // JSON文字列に戻してKVに保存
+    const updatedJsonString = JSON.stringify(data);
+    return await setKeyValue(kvKey, updatedJsonString);
+}
+
+/**
+ * 6. 【更新】指定したKVのkeyと内部キーを指定してインクリメント（+1して保存）する関数
+ * @param {string} kvKey - KVのキー名（例: 'ViewsDay'）
+ * @param {string} innerKey - JSON内のキー名（例: getDateString(0) や 'totalCount'）
+ */
+async function incrementInnerValue(kvKey, innerKey) {
+    // 1. 現在のKVデータを取得
+    const rawValue = await getKeyValue(kvKey);
+    
+    let data = {};
+    try {
+        data = JSON.parse(rawValue || "{}");
+    } catch (e) {
+        data = {};
+    }
+
+    // 2. 該当するキーの現在値を取得（なければ0）して +1 する
+    const currentCount = data[innerKey] ?? 0;
+    const newCount = currentCount + 1;
+
+    // 3. データを更新
+    data[innerKey] = newCount;
+
+    // 4. KVに保存
+    await setKeyValue(kvKey, JSON.stringify(data));
+
+    console.log(`[${kvKey}] のキー [${innerKey}] を ${newCount} に更新しました！`);
+    return newCount;
+}
+async function incrementInnerValuewithToday(keyname){
+  const today=getDateString()
+  const todayVal = await incrementInnerValue(`${keyname}Days`,`${keyname}_${today}`)
+  const allVal = await incrementValue(keyname)
+  return {today:todayVal,all:allVal}
+}
+
+/*======================================
+    リンクルート管理
+======================================*/
+const urlParams = new URLSearchParams(window.location.search);
+const pageState = urlParams.get("page")
+
+if (!pageState){
+
+}else if(pageState=="classPage"){
+  const classNumber = Number(urlParams.get("class"))
+  if ([1,2,3,4,5,6,7].includes(classNumber)){
+    openClass(classNumber)
+  }else{
+    console.log("クラス番号が有効ではありません")
+  }
+}else if(pageState=="viewPage"){
+  openViews()
+}
+/*======================================
+    表示数表示関数
+======================================*/
+
+async function openViews(){
+  document
+    .getElementById("top-page")
+    .classList.add("hidden");
+
+  document
+    .getElementById("work-page")
+    .classList.add("hidden");
+  
+  document
+    .getElementById("viw-page")
+    .classList.remove("hidden")
+
+  const viewPage = document.getElementById("view-page")
+  viewPage.style.setProperty("--current-color","#444")
+  
+  document.getElementById("viewPage_All").textContent= await getValue("View_All")
 }
 /* =====================================
    作品情報（ここに生徒2〜3人の意見をそれぞれ設定できます）
@@ -333,10 +464,13 @@ function openClass(classNumber) {
 
   const work = works[classNumber];
 
-  incrementKey(`View_Class${String(classNumber)}`)
 
   document
     .getElementById("top-page")
+    .classList.add("hidden");
+
+  document
+    .getElementById("view-page")
     .classList.add("hidden");
 
   document
@@ -586,9 +720,9 @@ function goAncate(){
 
 
 async function loaded(){
-  const count = await incrementKey("View_All")
+  const count = await incrementInnerValuewithToday("View_All")
   console.log(count)
-  document.getElementById("view").innerText=`表示数:${String(count)}`
+  document.getElementById("view").textContent=`本日:${String(count.Today)}\n総数:${String(count.All)}`
 }
 
 if (document.readyState === "loading") {
