@@ -26,6 +26,17 @@ function getMonthString(monthAgo = 0) {
   return `${year}-${month}`
 }
 
+function getCurrentJstHour() {
+    const formatter = new Intl.DateTimeFormat('ja-JP', {
+        timeZone: 'Asia/Tokyo',
+        hour: 'numeric',
+        hour12: false // 24時間表記にする（trueにすると午前/午後になる）
+    });
+    
+    // format() は文字列を返すため、数的に扱いたい場合は parseInt で数値化する
+    return parseInt(formatter.format(new Date()), 10);
+}
+
 /**
  * 2. 指定したKVのkeyの値を呼び出す関数（取得）
  */
@@ -132,10 +143,12 @@ async function incrementInnerValuewithToday(keyname){
 async function incrementKey(keyname){
   const today=getDateString()
   const month = getMonthString()
+  const hour = getCurrentJstHour()
   const todayVal = await incrementInnerValue(`${keyname}Days`,`${keyname}_${today}`)
   const monthVal = await incrementInnerValue(`${keyname}Monthes`,`${keyname}_${month}`)
+  const hourVal = await incrementInnerValue(`${keyname}Hours`,`${keyname}_${hour}`)
   const allVal = await incrementValue(keyname)
-  return {today:todayVal,all:allVal,month:monthVal}
+  return {today:todayVal,all:allVal,month:monthVal,hour:hourVal}
 }
 
 async function getInnerValuewithToday(keyname){
@@ -155,6 +168,11 @@ async function  getInnerValuewithMonthAgo(keyname, monthago) {
   const monthst = getMonthString(monthago)
   const monthVal = await getInnerValue(`${keyname}Monthes`,`${keyname}_${monthst}`)
   return monthVal
+}
+async function getInnerValuewithHour(keyname, hour) {
+  const hour = hour
+  const hourVal = await getInnerValue(`${keyname}Hours`,`${keyname}_${hour}`)
+  return hourVal
 }
 /*======================================
     表示数表示関数
@@ -179,10 +197,13 @@ async function openViews(){
   document.getElementById("viewPage_All").innerHTML=`総数:${bascs.all} <br> 本日:${bascs.today} <br> 昨日${bascs.yesterday}` 
 
   for(let i =0;i<7;i++){
-    document.getElementById("viewPage_week").innerHTML += `${getDateString(i)}:${await getInnerValuewithDaysAgo(`View_${"Main"}`,i)} <br>`
+    document.getElementById("viewPage_week").innerHTML += `${getDateString(i)} : ${await getInnerValuewithDaysAgo(`View_${"Main"}`,i)} <br>`
   }
   for(let i = 0; i<12; i++){
-    document.getElementById("viewPage_month").innerHTML += `${getMonthString(i)};${await getInnerValuewithMonthAgo(`View_${"Main"}`,i)} <br>`
+    document.getElementById("viewPage_month").innerHTML += `${getMonthString(i)} : ${await getInnerValuewithMonthAgo(`View_${"Main"}`,i)} <br>`
+  }
+  for(let i =0; i<24; i++){
+    document.getElementById("viewPage_time").innerHTML += `${i}:00~${i+1}:00 : ${await getInnerValuewithHour(`View_${"Main"}`,i)} <br>`
   }
 }
 /* =====================================
