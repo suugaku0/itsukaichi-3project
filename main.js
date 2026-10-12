@@ -25,7 +25,6 @@ async function getKeyValue(key) {
     try {
         const res = await fetch(`${API_URL}/?action=get&key=${encodeURIComponent(key)}`);
         const data = await res.json();
-        console.log(data.value)
         return data.success ? data.value : null;
     } catch (err) {
         console.error('KV取得エラー:', err);
@@ -40,7 +39,6 @@ async function setKeyValue(key, value) {
     try {
         const res = await fetch(`${API_URL}/?action=set&key=${encodeURIComponent(key)}&value=${encodeURIComponent(value)}`);
         const data = await res.json();
-        console.log(data.success)
         return data.success;
     } catch (err) {
         console.error('KV保存エラー:', err);
@@ -55,7 +53,6 @@ async function incrementValue(key){
     
   // 新しい値を保存する
   await setKeyValue(key, newVal);
-  console.log(newVal)
   return newVal;
 }
 /**
@@ -68,7 +65,6 @@ async function getInnerValue(kvKey, innerKey, defaultValue = 0) {
     const rawValue = await getKeyValue(kvKey);
     try {
         const data = JSON.parse(rawValue || "{}");
-        console.log(data[innerKey])
         return data[innerKey] ?? defaultValue;
     } catch (e) {
         return defaultValue;
@@ -86,9 +82,11 @@ async function setInnerValue(kvKey, innerKey, value) {
     const rawValue = await getKeyValue(kvKey);
     let data = {};
     try {
+        console.log("setInnerValueのJSON取得は実行された。")
         data = JSON.parse(rawValue || "{}");
     } catch (e) {
         data = {};
+        console.log("setInnerValueのJSON取得はエラーになった。")
     }
     
     // 特定のキーの値を書き換え
