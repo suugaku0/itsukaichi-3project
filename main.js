@@ -20,7 +20,7 @@ function getDateString(daysAgo = 0) {
 function getMonthString(monthAgo = 0) {
   const date = new Date()
   date.setDate(1)
-  date.setMonth(date.getMonth - monthAgo)
+  date.setMonth(date.getMonth() - monthAgo)
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2,'0')
   return `${year}-${month}`
@@ -179,10 +179,10 @@ async function openViews(){
   document.getElementById("viewPage_All").innerHTML=`総数:${bascs.all} <br> 本日:${bascs.today} <br> 昨日${bascs.yesterday}` 
 
   for(let i =0;i<7;i++){
-    document.getElementById("viewPage_week").innerHTML += `${getDateString(i)}:${await getInnerValuewithDaysAgo(i)} <br>`
+    document.getElementById("viewPage_week").innerHTML += `${getDateString(i)}:${await getInnerValuewithDaysAgo(`view_${"Main"}`,i)} <br>`
   }
   for(let i = 0; i<12; i++){
-    document.getElementById("viewPage_Month").innerHTML += `${getMonthString(i)};${await getInnerValuewithMonthAgo(i)} <br.`
+    document.getElementById("viewPage_Month").innerHTML += `${getMonthString(i)};${await getInnerValuewithMonthAgo(`view_${"Main"}`,i)} <br>`
   }
 }
 /* =====================================
