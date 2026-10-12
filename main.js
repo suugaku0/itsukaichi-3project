@@ -705,7 +705,7 @@ function goAncate(){
 async function loaded(){
   const count = await incrementInnerValuewithToday("View_All")
   console.log(count)
-  document.getElementById("view").textContent=`本日:${String(count.Today)}\n総数:${String(count.All)}`
+  document.getElementById("view").innerHTML=`本日:${String(count.today)} <br> 総数:${String(count.all)}`
 }
 
 if (document.readyState === "loading") {
