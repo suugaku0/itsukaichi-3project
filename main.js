@@ -159,7 +159,7 @@ async function openViews(){
   const viewPage = document.getElementById("view-page")
   viewPage.style.setProperty("--current-color","#444")
   
-  document.getElementById("viewPage_All").textContent= await getValue("View_All")
+  document.getElementById("viewPage_All").textContent= await getKeyValue("View_All")
 }
 /* =====================================
    作品情報（ここに生徒2〜3人の意見をそれぞれ設定できます）
