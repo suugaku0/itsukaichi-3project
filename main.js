@@ -47,12 +47,12 @@ async function setKeyValue(key, value) {
 }
 
 async function incrementValue(key){
-  const currentStr = await getValue(key);
+  const currentStr = await getKeyValue(key);
   const currentVal = currentStr !== null ? parseInt(currentStr, 10) : 0;
   const newVal = currentVal + 1;
     
   // 新しい値を保存する
-  await setValue(key, newVal);
+  await setKeyValue(key, newVal);
   return newVal;
 }
 /**
