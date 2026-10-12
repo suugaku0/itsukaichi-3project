@@ -368,7 +368,20 @@ footer {
 /* =========================
    内容カード
 ========================= */
-
+.view-grid {
+  grid-template-areas:
+    "left-top right"
+    "left-bottom right";
+}
+.view-week {
+  grid-area: left-top;
+}
+.view-month {
+  grid-area:left-bottom;
+}
+.view-time{
+  grid-area:right;
+}
 .content-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
