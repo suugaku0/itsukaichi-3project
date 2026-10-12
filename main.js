@@ -83,7 +83,12 @@ async function setInnerValue(kvKey, innerKey, value) {
     let data = {};
     try {
         console.log("setInnerValueのJSON取得は実行された。")
-        data = JSON.parse(rawValue);
+        const parsed=JSON.parse(rawValue)
+        if (typeof parsed === 'object' && parsed !== null && !Array.isArray(parsed)){
+          data = parsed;
+        }else{
+          data={};
+        }
     } catch (e) {
         data = {};
         console.log("setInnerValueのJSON取得はエラーになった。")
