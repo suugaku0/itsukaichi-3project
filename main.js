@@ -93,9 +93,7 @@ async function setInnerValue(kvKey, innerKey, value) {
     data[innerKey] = value;
     
     // JSON文字列に戻してKVに保存
-    console.log(data)
     const updatedJsonString = JSON.stringify(data);
-    console.log(updatedJsonString)
     return await setKeyValue(kvKey, updatedJsonString);
 }
 
@@ -123,7 +121,7 @@ async function incrementInnerValue(kvKey, innerKey) {
 
     // 3. データを更新
     data[innerKey] = newCount;
-
+    console.log(`データ:${data}`)
     // 4. KVに保存
     await setKeyValue(kvKey, JSON.stringify(data));
 
