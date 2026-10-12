@@ -126,6 +126,7 @@ async function incrementInnerValue(kvKey, innerKey) {
 }
 async function incrementInnerValuewithToday(keyname){
   const today=getDateString()
+  console.log(today)
   const todayVal = await incrementInnerValue(`${keyname}Days`,`${keyname}_${today}`)
   const allVal = await incrementValue(keyname)
   return {today:todayVal,all:allVal}
