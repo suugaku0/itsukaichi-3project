@@ -718,15 +718,15 @@ count(pageState+classNumberSt)
 
 if (!pageState){
   goHome();
-}else if(pageState=="main"){
+}else if(pageState=="Main"){
   goHome();
-}else if(pageState=="class"){
+}else if(pageState=="Class"){
   const classNumber = Number(classNumberSt)
   if ([1,2,3,4,5,6,7].includes(classNumber)){
     openClass(classNumber)
   }else{
     console.log("クラス番号が有効ではありません")
   }
-}else if(pageState=="view"){
+}else if(pageState=="View"){
   openViews()
 }
