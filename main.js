@@ -700,7 +700,7 @@ function goAncate(){
 =========================================*/
 
 
-async function count(pageState="Main"){
+async function count(pageState = "Main"){
   await incrementInnerValuewithToday(`View_${pageState}`)
   const count= await getInnerValuewithToday(`View_Main`)
   console.log(count)
@@ -713,8 +713,8 @@ async function count(pageState="Main"){
 ======================================*/
 const urlParams = new URLSearchParams(window.location.search);
 const pageState = urlParams.get("page")
-const classNumberSt = urlParams.get("class") || ""
-count(pageState+classNumberSt)
+const classNumberSt = urlParams.get("class")
+count(pageState)
 
 if (!pageState){
   goHome();
