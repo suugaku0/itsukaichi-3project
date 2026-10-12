@@ -170,7 +170,6 @@ async function  getInnerValuewithMonthAgo(keyname, monthago) {
   return monthVal
 }
 async function getInnerValuewithHour(keyname, hour) {
-  const hour = hour
   const hourVal = await getInnerValue(`${keyname}Hours`,`${keyname}_${hour}`)
   return hourVal
 }
