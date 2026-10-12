@@ -146,7 +146,7 @@ async function openViews(){
     .classList.add("hidden");
   
   document
-    .getElementById("viw-page")
+    .getElementById("view-page")
     .classList.remove("hidden")
 
   const viewPage = document.getElementById("view-page")
