@@ -17,6 +17,14 @@ function getDateString(daysAgo = 0) {
     
     return `${year}-${month}-${day}`;
 }
+function getMonthString(monthAgo = 0) {
+  const date = new Date()
+  date.setDate(1)
+  date.setMonth(date.getMonth - monthAgo)
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2,'0')
+  return `${year}-${month}`
+}
 
 /**
  * 2. 指定したKVのkeyの値を呼び出す関数（取得）
@@ -120,6 +128,16 @@ async function incrementInnerValuewithToday(keyname){
   const allVal = await incrementValue(keyname)
   return {today:todayVal,all:allVal}
 }
+
+async function incrementKey(keyname){
+  const today=getDateString()
+  const month = getMonthString()
+  const todayVal = await incrementInnerValue(`${keyname}Days`,`${keyname}_${today}`)
+  const monthVal = await incrementInnerValue(`${keyname}Monthes`,`${keyname}_${month}`)
+  const allVal = await incrementValue(keyname)
+  return {today:todayVal,all:allVal,month:monthVal}
+}
+
 async function getInnerValuewithToday(keyname){
   const today = getDateString()
   const yesterday = getDateString(1)
@@ -133,7 +151,11 @@ async function  getInnerValuewithDaysAgo(keyname, daysago) {
   const dayVal = await getInnerValue(`${keyname}Days`,`${keyname}_${dayst}`)
   return dayVal
 }
-
+async function  getInnerValuewithMonthAgo(keyname, monthago) {
+  const monthst = getMonthString(monthago)
+  const monthVal = await getInnerValue(`${keyname}Days`,`${keyname}_${monthst}`)
+  return monthVal
+}
 /*======================================
     表示数表示関数
 ======================================*/
@@ -158,6 +180,9 @@ async function openViews(){
 
   for(let i =0;i<7;i++){
     document.getElementById("viewPage_week").innerHTML += `${getDateString(i)}:${await getInnerValuewithDaysAgo(i)} <br>`
+  }
+  for(let i = 0; i<12; i++){
+    document.getElementById("viewPage_Month").innerHTML += `${getMonthString(i)};${await getInnerValuewithMonthAgo(i)} <br.`
   }
 }
 /* =====================================
@@ -709,7 +734,7 @@ function goAncate(){
 
 
 async function count(pageState = "Main"){
-  await incrementInnerValuewithToday(`View_${pageState}`)
+  await incrementKey(`View_${pageState}`)
   const count= await getInnerValuewithToday(`View_Main`)
   console.log(count)
   document.getElementById("view").innerHTML=`本日:${String(count.today)} <br> 昨日:${String(count.yesterday)} <br> 総数:${String(count.all)}`
