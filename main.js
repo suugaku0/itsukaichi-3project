@@ -122,9 +122,11 @@ async function incrementInnerValuewithToday(keyname){
 }
 async function getInnerValuewithToday(keyname){
   const today = getDateString()
+  const yesterday = getDateString(1)
   const todayVal = await getInnerValue(`${keyname}Days`,`${keyname}_${today}`)
+  const yesterdayVal = await getInnerValue(`${keyname}Days`,`${keyname}_${yesterday}`)
   const allVal = await getKeyValue(keyname)
-  return {today:todayVal,all:allVal};
+  return {today:todayVal,all:allVal,yesterday:yesterdayVal};
 }
 
 
@@ -702,7 +704,7 @@ async function countMain(){
   await incrementInnerValuewithToday("View_All")
   const count= await getInnerValuewithToday("View_All")
   console.log(count)
-  document.getElementById("view").innerHTML=`本日:${String(count.all)} <br> 総数:${String(count.all)}`
+  document.getElementById("view").innerHTML=`本日:${String(count.today)} <br> 総数:${String(count.all)}`
 }
 
 
