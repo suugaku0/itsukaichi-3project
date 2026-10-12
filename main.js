@@ -714,6 +714,10 @@ const pageState = urlParams.get("page")
 
 if (!pageState){
   loaded();
+  goHome();
+}else if(pageState=="mainPage"){
+  loaded();
+  goHome();
 }else if(pageState=="classPage"){
   const classNumber = Number(urlParams.get("class"))
   if ([1,2,3,4,5,6,7].includes(classNumber)){
